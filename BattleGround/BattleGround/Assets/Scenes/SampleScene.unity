@@ -236,6 +236,12 @@ MonoBehaviour:
   - {fileID: 678475535}
   - {fileID: 1466270955}
   - {fileID: 133931564}
+  deadMinion: []
+  enemyMinions: {fileID: 994779398}
+  gameController: {fileID: 951928148}
+  attackingMinionID: -1
+  speedOfAttack: 10
+  speedOfMove: 2
 --- !u!4 &91116516
 Transform:
   m_ObjectHideFlags: 0
@@ -324,6 +330,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 91116515}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!114 &133931564 stripped
@@ -447,6 +458,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 994779398}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!1001 &237219241
@@ -516,6 +532,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 91116515}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!1001 &303456767
@@ -600,6 +621,11 @@ PrefabInstance:
       propertyPath: health
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 994779398}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!4 &368611428 stripped
@@ -687,6 +713,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 994779398}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!1001 &417728575
@@ -756,6 +787,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 994779398}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!114 &678475535 stripped
@@ -868,6 +904,11 @@ PrefabInstance:
       propertyPath: health
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 994779398}
     - target: {fileID: 2812546316711593349, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
         type: 3}
       propertyPath: m_IsActive
@@ -952,6 +993,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 91116515}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!1001 &841812841
@@ -1021,6 +1067,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 91116515}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!1001 &904575339
@@ -1090,6 +1141,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 91116515}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!1001 &910569557
@@ -1159,6 +1215,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 994779398}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!1 &951928147
@@ -1190,8 +1251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48ca16dea705db4f9d9223712477a78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerMinions1: {fileID: 994779398}
-  PlayerMinions2: {fileID: 91116515}
+  playerMinions1: {fileID: 994779398}
+  playerMinions2: {fileID: 91116515}
 --- !u!4 &951928149
 Transform:
   m_ObjectHideFlags: 0
@@ -1344,6 +1405,12 @@ MonoBehaviour:
   - {fileID: 1148267356}
   - {fileID: 180184134}
   - {fileID: 2044379489}
+  deadMinion: []
+  enemyMinions: {fileID: 91116515}
+  gameController: {fileID: 951928148}
+  attackingMinionID: -1
+  speedOfAttack: 10
+  speedOfMove: 2
 --- !u!4 &994779399
 Transform:
   m_ObjectHideFlags: 0
@@ -1432,6 +1499,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 994779398}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!4 &1148267354 stripped
@@ -1573,6 +1645,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 91116515}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!1001 &1718650289
@@ -1642,6 +1719,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7861475203313797012, guid: 31caf4bd62582bf479dc55ae0f9e3d09,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 91116515}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31caf4bd62582bf479dc55ae0f9e3d09, type: 3}
 --- !u!4 &1972564913 stripped

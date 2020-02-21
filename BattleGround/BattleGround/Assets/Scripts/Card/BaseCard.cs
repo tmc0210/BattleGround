@@ -8,16 +8,16 @@ public class BaseCard : MonoBehaviour
     [SerializeField] private int attack;
     [SerializeField] private int health;
     [SerializeField] private int maxHealth;
-    [SerializeField] private int baseAttack;
-    [SerializeField] private int baseHealth;
+    [SerializeField] private int baseAttack = 1;
+    [SerializeField] private int baseHealth = 1;
     [SerializeField] private List<Race> races = new List<Race>();
     [SerializeField] private List<KeyWord> keyWords = new List<KeyWord>();
     [SerializeField] private bool death;
-    private GameController gameController;
-    private Minions minions;
+    [SerializeField] private GameController gameController;
+    [SerializeField] private Minions minions;
     private MinionView minionView;
 
-    void Start()
+    void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("GameController") != null)
         {
@@ -134,6 +134,8 @@ public class BaseCard : MonoBehaviour
 
     public bool Death()
     {
+        Debug.Log(gameObject.name + " is Death");
+        death = true;
         return false;
     }
 
@@ -144,10 +146,37 @@ public class BaseCard : MonoBehaviour
         return false;
     }
 
+    public void AttackAction(BaseCard target)
+    {
+        StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
+        {
+            Debug.Log(gameObject.name + " attack " + target.name);
+            Attack(target);            
+        }, 1.5f));
+
+        StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
+        {
+            NotShowNumOfDamage();
+            target.NotShowNumOfDamage();
+        }, 3.0f));
+
+        StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
+        {
+            minions.DeathSettlement();
+        }, 5.2f));
+    }
+
     public bool GetHurt(int damage)
     {
-
+        ChangeLeftHealth(-damage);
+        minionView.ShowNumOfDamage(damage);
+        TakeDamage();
         return false;
+    }
+
+    public void NotShowNumOfDamage()
+    {
+        minionView.NotShowNumOfDamage();
     }
 
     public bool BattleCry()
@@ -155,9 +184,15 @@ public class BaseCard : MonoBehaviour
         return false;
     }
 
-    public bool DealthRattle()
+    public bool DeathRattle()
     {
-        return false;
+        System.Threading.Thread.Sleep(50);
+        BaseCard target = minions.enemyMinions.minions[minions.enemyMinions.RandomlyChooseMinion()];
+        target.GetHurt(5);
+        Debug.Log(gameObject.name + " hurt " + target.name);
+        System.Threading.Thread.Sleep(1000);
+        //TODO
+        return true;
     }
 
     public bool Holo()

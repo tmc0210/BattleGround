@@ -4,18 +4,32 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public Minions PlayerMinions1;
-    public Minions PlayerMinions2;
+    public Minions playerMinions1;
+    public Minions playerMinions2;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        NextTurn(playerMinions1);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void NextTurn(Minions minion)
     {
-        
+        minion.RandomlyAttack();
+    }
+
+    private bool IsGameOver()
+    {
+        return false;
+    }
+
+    public void GameOver(string str)
+    {
+#if UNITY_EDITOR
+        Debug.Log(str + " is lost");
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

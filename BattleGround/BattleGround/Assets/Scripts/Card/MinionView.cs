@@ -8,10 +8,13 @@ public class MinionView : MonoBehaviour
     public Text attackText;
     public Text healthText;
     public Image shield;
+    public Image damaged;
+    public Text damageText;
 
     private BaseCard baseCard;
     private Text attackTextComponent;
     private Text healthTextComponent;
+    private Text damageTextComponent;
 
     void Start()
     {
@@ -26,7 +29,8 @@ public class MinionView : MonoBehaviour
         }
         attackTextComponent = attackText.GetComponent<Text>();
         healthTextComponent = healthText.GetComponent<Text>();
-        if (attackTextComponent == null || healthTextComponent == null)
+        damageTextComponent = damageText.GetComponent<Text>();
+        if (attackTextComponent == null || healthTextComponent == null || damageText == null)
         {
             Debug.Log("Can't find TextComponent");
         }
@@ -86,5 +90,19 @@ public class MinionView : MonoBehaviour
         AttackUpdate();
         HealthUpdate();
         KeyWordUpdate();
+    }
+
+    public void ShowNumOfDamage(int damage)
+    {
+        damaged.gameObject.SetActive(true);
+        damageText.text = "-" + damage;
+        damageText.gameObject.SetActive(true);
+    }
+
+    public void NotShowNumOfDamage()
+    {
+        damaged.gameObject.SetActive(false);
+        damageText.text = "";
+        damageText.gameObject.SetActive(false);
     }
 }
