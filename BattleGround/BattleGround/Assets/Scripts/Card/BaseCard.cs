@@ -4,18 +4,34 @@ using UnityEngine;
 
 public class BaseCard : MonoBehaviour
 {
-    [SerializeField] private int star;
-    [SerializeField] private int attack;
-    [SerializeField] private int health;
-    [SerializeField] private int maxHealth;
-    [SerializeField] private int baseAttack = 1;
-    [SerializeField] private int baseHealth = 1;
-    [SerializeField] private List<Race> races = new List<Race>();
-    [SerializeField] private List<KeyWord> keyWords = new List<KeyWord>();
-    [SerializeField] private bool death;
-    [SerializeField] private GameController gameController;
-    [SerializeField] private Minions minions;
-    private MinionView minionView;
+    [SerializeField] protected int star;
+    [SerializeField] protected int attack;
+    [SerializeField] protected int health;
+    [SerializeField] protected int maxHealth;
+    [SerializeField] protected int baseAttack = 1;
+    [SerializeField] protected int baseHealth = 1;
+    [SerializeField] protected List<Race> races = new List<Race>();
+    [SerializeField] protected bool death;
+    [SerializeField] protected GameController gameController;
+    [SerializeField] protected Minions minions;
+    [SerializeField] protected Minions enemyMinions;
+
+    [SerializeField] protected bool isTaunt = false;
+    [SerializeField] protected bool isDivineShield = false;
+    [SerializeField] protected bool isWindfury = false;
+    [SerializeField] protected bool isMegaWindfury = false;
+    [SerializeField] protected bool isStealth = false;
+    [SerializeField] protected bool haveDeathrattle = false;
+
+    public MinionView minionView;
+    public int deathPosition;
+
+    public bool IsTaunt { get => isTaunt; set => isTaunt = value; }
+    public bool IsDivineShield { get => isDivineShield; set => isDivineShield = value; }
+    public bool IsWindfury { get => isWindfury; set => isWindfury = value; }
+    public bool IsMegaWindfury { get => isMegaWindfury; set => isMegaWindfury = value; }
+    public bool IsStealth { get => isStealth; set => isStealth = value; }
+    public bool HaveDeathrattle { get => haveDeathrattle; set => haveDeathrattle = value; }
 
     void Awake()
     {
@@ -65,16 +81,6 @@ public class BaseCard : MonoBehaviour
         return death;
     }
 
-    public bool IsKeyWord(KeyWord.KeyWordType keyWord)
-    {
-        bool flag = false;
-        foreach(KeyWord tmp in keyWords)
-        {
-            if (tmp.IsKeyWord(keyWord)) flag = true;
-        }
-        return flag;
-    }
-
     public bool IsRace(Race.RaceType race)
     {
         bool flag = false;
@@ -107,28 +113,26 @@ public class BaseCard : MonoBehaviour
         minionView.HealthUpdate();
     }
 
-    public void GetKeyWord(KeyWord.KeyWordType keyWordType)
-    {
-        if (!IsKeyWord(keyWordType))
-        {
-            keyWords.Add(new KeyWord(keyWordType));
-            minionView.KeyWordUpdate();
-        }
-    }
-
-    public void LoseKeyWord(KeyWord.KeyWordType keyWordType)
-    {
-        if (IsKeyWord(keyWordType))
-        {
-            keyWords.Remove(new KeyWord(keyWordType));
-            minionView.KeyWordUpdate();
-        }
-    }
-
     public bool Summon(Minions minions)
     {
         this.minions = minions;
-        minionView.ViewUpdate();
+        enemyMinions = minions.enemyMinions;
+        if (GameObject.FindGameObjectsWithTag("GameController") != null)
+        {
+            gameController = GameObject.FindGameObjectsWithTag("GameController")[0].GetComponent<GameController>();
+        }
+        else
+        {
+            Debug.Log("Can't find GameController");
+        }
+        if (gameObject.GetComponent<MinionView>() != null)
+        {
+            minionView = gameObject.GetComponent<MinionView>();
+        }
+        else
+        {
+            Debug.Log("Can't find MinionView");
+        }
         return false;
     }
 
@@ -138,84 +142,101 @@ public class BaseCard : MonoBehaviour
         return false;
     }
 
-    public bool Attack(BaseCard target)
+    public virtual IEnumerator Attack(BaseCard target)
     {
-        GetHurt(target.GetCurrentAttack());
-        target.GetHurt(GetCurrentAttack());
-        return false;
+        yield return StartCoroutine(target.GetHurt(GetCurrentAttack()));
+        yield return StartCoroutine(GetHurt(target.GetCurrentAttack()));        
     }
 
-    public void AttackAction(BaseCard target)
+    public IEnumerator AttackAction(int targetID)
     {
-        StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
+        BaseCard target = enemyMinions.GetMinionByID(targetID);
+
+        yield return StartCoroutine(minionView.AttackMove(PositionCalculate(targetID, enemyMinions.GetNumOfMinions())));
+        StartCoroutine(minionView.Move(PositionCalculate(GetID(), minions.GetNumOfMinions())));
+
+        yield return StartCoroutine(Attack(target));
+
+        StartCoroutine(minions.DeathSettlement());
+        
+    }
+
+    public IEnumerator MoveTo(int targetPosition)
+    {
+        StartCoroutine (minionView.Move(targetPosition));
+        yield return 0;
+    }
+
+    public int PositionCalculate(int targetID,int total)
+    {
+        return (Minions.LIMIT_OF_MINIONS - total) + targetID * 2;
+    }
+
+    public virtual IEnumerator GetHurt(int damage)
+    {
+        if (isDivineShield)
         {
-            minionView.Attack();
-            Attack(target);            
-        }, 1.5f));
-
-        StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
+            minionView.ShowNumOfDamage(0);
+            isDivineShield = false;
+            minionView.KeyWordUpdate();
+            yield return 0;
+        }
+        else
         {
-            StartCoroutine(minions.DeathSettlement());
-        }, 4.2f));
+            ChangeLeftHealth(-damage);
+            minionView.ShowNumOfDamage(damage);
+            yield return StartCoroutine(TakeDamage());
+        }
     }
 
-    public bool GetHurt(int damage)
-    {
-        ChangeLeftHealth(-damage);
-        minionView.ShowNumOfDamage(damage);
-        TakeDamage();
-        return false;
-    }
-
-    public bool BattleCry()
+    public virtual bool BattleCry()
     {
         return false;
     }
 
-    public IEnumerator DeathRattle()
+    public virtual IEnumerator DeathRattle()
     {
-        yield return new WaitForSeconds(0.5f);
-        BaseCard target = minions.enemyMinions.minions[minions.enemyMinions.RandomlyChooseMinion()];
-        target.GetHurt(5);
-        yield return new WaitForSeconds(0.5f);
+        yield return 0;
     }
 
-    public bool Aura()
+    public virtual bool Aura()
     {
         return false;
     }
 
-    public bool AuraUpdate()
+    public virtual bool AuraUpdate()
     {
         return false;
     }
 
-    public bool AuraRemove()
+    public virtual bool AuraRemove()
     {
         return false;
     }
 
     //以下为各种扳机触发
 
-    public bool SummonMinion()
+    public virtual bool SummonMinion()
     {
         return false;
     }
 
-    public bool MinionDeath()
+    public virtual bool MinionDeath()
     {
         return false;
     }
 
-    public bool TakeDamage()
+    public virtual IEnumerator TakeDamage()
+    {
+        yield return 0;
+    }
+
+    public virtual bool KillMinion()
     {
         return false;
     }
 
-    public bool KillMinion()
-    {
-        return false;
-    }
+    //一些辅助函数
 
     public void NotShowNumOfDamage()
     {
@@ -229,6 +250,19 @@ public class BaseCard : MonoBehaviour
 
     public void DeathRattleView()
     {
-        minionView.DeathRattle();
-    }    
+        if (haveDeathrattle)
+        {
+            minionView.DeathRattle();
+        }
+    }   
+    
+    public int GetID()
+    {
+        return minions.minions.IndexOf(this);
+    }
+
+    public bool IsUnder()
+    {
+        return minions.IsUnder();
+    }
 }

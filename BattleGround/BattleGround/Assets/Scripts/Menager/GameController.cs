@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour
 
     public void NextTurn(Minions minion)
     {
-        minion.RandomlyAttack();
+        StartCoroutine(minion.RandomlyAttack());
     }
 
     private bool IsGameOver()

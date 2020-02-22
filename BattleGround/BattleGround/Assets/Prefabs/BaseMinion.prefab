@@ -207,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2617433984998347480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4485767717660955758
 RectTransform:
   m_ObjectHideFlags: 0
@@ -550,6 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ca88b2deb24c84bb8f722fe3ece6f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedOfHyalinize: 0.015
 --- !u!1 &4113574724686684613
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,6 +681,15 @@ MonoBehaviour:
   death: 0
   gameController: {fileID: 0}
   minions: {fileID: 0}
+  enemyMinions: {fileID: 0}
+  isTaunt: 0
+  isDivineShield: 0
+  isWindfury: 0
+  isMegaWindfury: 0
+  isStealth: 0
+  haveDeathrattle: 0
+  minionView: {fileID: 8382977222516527512}
+  deathPosition: 0
 --- !u!114 &8382977222516527512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,10 +705,18 @@ MonoBehaviour:
   attackText: {fileID: 1328699093518022777}
   healthText: {fileID: 932205620184557109}
   shield: {fileID: 6839975972813943139}
+  taunt: {fileID: 2915115199585885264}
   damaged: {fileID: 8967133149688722581}
   damageText: {fileID: 445776231101143177}
   deathRattle: {fileID: 5501460592532107009}
   canvas: {fileID: 5756398822060812618}
+  speedOfAttack: 0.8
+  speedOfMove: 0.3
+  leftX: -8.4
+  deltaX: 1.4
+  y: 3.8
+  direction: {x: 0, y: 0, z: 0}
+  baseCard: {fileID: 7861475203313797012}
 --- !u!50 &2161638187065202801
 Rigidbody2D:
   serializedVersion: 4
@@ -838,7 +856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5175023443529820057
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1177,6 +1195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ca88b2deb24c84bb8f722fe3ece6f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedOfHyalinize: 0.01
 --- !u!1 &7738873774587891025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,7 +1328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.47058824}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

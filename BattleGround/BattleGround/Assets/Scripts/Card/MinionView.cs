@@ -8,27 +8,28 @@ public class MinionView : MonoBehaviour
     public Text attackText;
     public Text healthText;
     public Image shield;
+    public Image taunt;
     public Image damaged;
     public Text damageText;
     public Image deathRattle;
     public Canvas canvas;
 
-    public float speedOfAttack = 10.0f;
-    public float speedOfMove = 2.0f;
+    public float speedOfAttack = 0.8f;
+    public float speedOfMove = 0.3f;
+
+    public float leftX = - 8.4f;
+    public float deltaX = 1.4f;
+    public float y = 3.8f;
 
     public Vector3 direction;
-    private BaseCard baseCard;
+
+    public BaseCard baseCard;
     private Text attackTextComponent;
     private Text healthTextComponent;
     private Text damageTextComponent;
 
     void Start()
-    {
-        baseCard = GetComponent<BaseCard>();
-        if (baseCard == null)
-        {
-            Debug.Log("Can't find BaseCard");
-        }
+    {        
         if (attackText == null || healthText == null)
         {
             Debug.Log("Can't find Text");
@@ -39,6 +40,11 @@ public class MinionView : MonoBehaviour
         if (attackTextComponent == null || healthTextComponent == null || damageText == null)
         {
             Debug.Log("Can't find TextComponent");
+        }
+
+        if (baseCard.IsUnder())
+        {
+            y = -y;
         }
 
         ViewUpdate();
@@ -81,13 +87,21 @@ public class MinionView : MonoBehaviour
 
     public void KeyWordUpdate()
     {
-        if (baseCard.IsKeyWord(KeyWord.KeyWordType.DivineShield))
+        if (baseCard.IsDivineShield)
         {
             shield.gameObject.SetActive(true);
         }
         else
         {
             shield.gameObject.SetActive(false);
+        }
+        if (baseCard.IsTaunt)
+        {
+            taunt.gameObject.SetActive(true);
+        }
+        else
+        {
+            taunt.gameObject.SetActive(false);
         }
     }
 
@@ -122,13 +136,42 @@ public class MinionView : MonoBehaviour
         canvas.gameObject.SetActive(false);
     }
 
-    public void Attack()
+    public IEnumerator AttackMove(int targetPosition)
     {
+        Vector3 target = new Vector3(leftX + deltaX * targetPosition, -y, 0);
+
+        direction = (target - transform.localPosition).normalized;
+        do
+        {
+            yield return StartCoroutine(MoveTo(direction));
+        }
+        while ((transform.localPosition - target).magnitude > 0.16);
         
+        yield return 0;
     }
 
-    void Update()
+    public IEnumerator Move(int targetPosition)
     {
-        //transform.position.x += direction * speedOfAttack;   
+        Vector3 target = new Vector3(leftX + deltaX * targetPosition, 0, 0);
+        direction = (target - transform.localPosition).normalized;
+        do
+        {
+            yield return StartCoroutine(MoveTo(direction));
+        }
+        while ((transform.localPosition - target).magnitude > 0.16);
+        PositionUpdating(targetPosition);
+        yield return 0;
+    }
+
+    public IEnumerator MoveTo(Vector3 direction)
+    {
+        transform.Translate(direction * speedOfMove, Space.Self);
+        yield return 0;
+    }
+    
+    public void PositionUpdating(int targetPosition)
+    {
+        Vector3 target = new Vector3(leftX + deltaX * targetPosition, 0, 0);
+        transform.localPosition = target;
     }
 }
