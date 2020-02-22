@@ -134,7 +134,6 @@ public class BaseCard : MonoBehaviour
 
     public bool Death()
     {
-        Debug.Log(gameObject.name + " is Death");
         death = true;
         return false;
     }
@@ -150,20 +149,14 @@ public class BaseCard : MonoBehaviour
     {
         StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
         {
-            Debug.Log(gameObject.name + " attack " + target.name);
+            minionView.Attack();
             Attack(target);            
         }, 1.5f));
 
         StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
         {
-            NotShowNumOfDamage();
-            target.NotShowNumOfDamage();
-        }, 3.0f));
-
-        StartCoroutine(DelayToInvoke.DelayToInvokeDo(() =>
-        {
-            minions.DeathSettlement();
-        }, 5.2f));
+            StartCoroutine(minions.DeathSettlement());
+        }, 4.2f));
     }
 
     public bool GetHurt(int damage)
@@ -174,33 +167,30 @@ public class BaseCard : MonoBehaviour
         return false;
     }
 
-    public void NotShowNumOfDamage()
-    {
-        minionView.NotShowNumOfDamage();
-    }
-
     public bool BattleCry()
     {
         return false;
     }
 
-    public bool DeathRattle()
+    public IEnumerator DeathRattle()
     {
-        System.Threading.Thread.Sleep(50);
+        yield return new WaitForSeconds(0.5f);
         BaseCard target = minions.enemyMinions.minions[minions.enemyMinions.RandomlyChooseMinion()];
         target.GetHurt(5);
-        Debug.Log(gameObject.name + " hurt " + target.name);
-        System.Threading.Thread.Sleep(1000);
-        //TODO
-        return true;
+        yield return new WaitForSeconds(0.5f);
     }
 
-    public bool Holo()
+    public bool Aura()
     {
         return false;
     }
 
-    public bool _Holo()
+    public bool AuraUpdate()
+    {
+        return false;
+    }
+
+    public bool AuraRemove()
     {
         return false;
     }
@@ -227,4 +217,18 @@ public class BaseCard : MonoBehaviour
         return false;
     }
 
+    public void NotShowNumOfDamage()
+    {
+        minionView.NotShowNumOfDamage();
+    }
+
+    public void SetInvisible()
+    {
+        minionView.SetInvisible();
+    }
+
+    public void DeathRattleView()
+    {
+        minionView.DeathRattle();
+    }    
 }

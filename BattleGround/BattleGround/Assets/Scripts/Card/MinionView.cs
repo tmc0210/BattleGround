@@ -10,7 +10,13 @@ public class MinionView : MonoBehaviour
     public Image shield;
     public Image damaged;
     public Text damageText;
+    public Image deathRattle;
+    public Canvas canvas;
 
+    public float speedOfAttack = 10.0f;
+    public float speedOfMove = 2.0f;
+
+    public Vector3 direction;
     private BaseCard baseCard;
     private Text attackTextComponent;
     private Text healthTextComponent;
@@ -104,5 +110,25 @@ public class MinionView : MonoBehaviour
         damaged.gameObject.SetActive(false);
         damageText.text = "";
         damageText.gameObject.SetActive(false);
+    }
+
+    public void DeathRattle()
+    {
+        deathRattle.gameObject.SetActive(true);
+    }
+
+    public void SetInvisible()
+    {
+        canvas.gameObject.SetActive(false);
+    }
+
+    public void Attack()
+    {
+        
+    }
+
+    void Update()
+    {
+        //transform.position.x += direction * speedOfAttack;   
     }
 }

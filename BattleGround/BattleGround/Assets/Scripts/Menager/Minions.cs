@@ -12,9 +12,6 @@ public class Minions : MonoBehaviour
 
     [SerializeField] private int attackingMinionID = -1;
 
-    public float speedOfAttack = 10.0f;
-    public float speedOfMove = 2.0f;
-
     public int GetNumOfMinions()
     {
         if (minions.ToArray().Length > 0)
@@ -47,6 +44,8 @@ public class Minions : MonoBehaviour
                     attackingMinionID--;
                 }
                 minions.Remove(baseCard);
+                baseCard.SetInvisible();
+                //Minions Move
             }
         }
     }
@@ -86,56 +85,67 @@ public class Minions : MonoBehaviour
         return 0;
     }
 
-    public bool DeathSettlement()
+    public IEnumerator DeathSettlement()
     {  
         foreach(BaseCard baseCard in minions)
-        {
-            //baseCard.NotShowNumOfDamage();
+        {            
             if (baseCard.IsDie())
             {
-                deadMinion.Add(baseCard);                
+                deadMinion.Add(baseCard);
+                baseCard.DeathRattleView();
             }
         }
 
         foreach (BaseCard baseCard in enemyMinions.minions)
-        {
-            //baseCard.NotShowNumOfDamage();
+        {           
             if (baseCard.IsDie())
             {
                 deadMinion.Add(baseCard);
+                baseCard.DeathRattleView();
             }
         }
+
+        AuraUpdateSettlement();
+        enemyMinions.AuraUpdateSettlement();
+
         foreach (BaseCard baseCard in deadMinion)
         {
+            baseCard.AuraRemove();
             Remove(baseCard);            
             enemyMinions.Remove(baseCard);
         }
 
         if (deadMinion.ToArray().Length != 0)
         {
-            HoloSettlement();
-            DeathRattleSettlement();
+            yield return StartCoroutine(DeathRattleSettlement());
             deadMinion = new List<BaseCard>();
-            DeathSettlement();
+            StartCoroutine(DeathSettlement());
         }
         else
         {            
             gameController.NextTurn(enemyMinions);
         }
-        return false;
     }
 
-    public bool DeathRattleSettlement()
+    public void RemoveDamageText()
     {
-        foreach(BaseCard baseCard in deadMinion)
+        foreach(BaseCard baseCard in minions)
         {
-            baseCard.DeathRattle();
+            baseCard.NotShowNumOfDamage();
         }
-        return true;
     }
 
-    public bool HoloSettlement()
+    public IEnumerator DeathRattleSettlement()
     {
-        return false;
+        foreach(BaseCard deadMinion in deadMinion)
+        {
+            yield return StartCoroutine(deadMinion.DeathRattle());
+        }
     }
+
+    public void AuraUpdateSettlement()
+    {
+
+    }
+
 }
