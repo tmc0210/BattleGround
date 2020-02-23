@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2
+  m_Text: 0
 --- !u!114 &5342078078950604887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 14
+  m_Text: 10
 --- !u!114 &5707442272519882753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2617433984998347480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -673,23 +673,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   star: 4
-  attack: 2
-  health: 14
-  maxHealth: 14
+  attack: 0
+  health: 10
+  maxHealth: 10
   baseAttack: 0
   baseHealth: 10
   death: 0
   gameController: {fileID: 0}
-  minions: {fileID: 0}
   enemyMinions: {fileID: 0}
+  minions: {fileID: 0}
   isTaunt: 1
   isDivineShield: 1
   isWindfury: 0
   isMegaWindfury: 0
   isStealth: 0
   haveDeathrattle: 0
+  isMech: 1
   minionView: {fileID: 8382977222516527512}
   deathPosition: 0
+  selfPrefab: {fileID: 7732485644264520829, guid: 083c99f596850f144a39d8593059aa3c,
+    type: 3}
   prefab: {fileID: 7861475203313797012, guid: f1883b7ac1e257c45be94f40f56a9f2b, type: 3}
 --- !u!114 &8382977222516527512
 MonoBehaviour:
@@ -1288,7 +1291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3485204228500654652
 RectTransform:
   m_ObjectHideFlags: 0

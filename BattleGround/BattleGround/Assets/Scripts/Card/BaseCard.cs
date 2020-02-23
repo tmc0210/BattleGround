@@ -13,8 +13,9 @@ public class BaseCard : MonoBehaviour
     [SerializeField] protected List<Race> races = new List<Race>();
     [SerializeField] protected bool death;
     [SerializeField] protected GameController gameController;
-    [SerializeField] protected Minions minions;
     [SerializeField] protected Minions enemyMinions;
+
+    public Minions minions;
 
     [SerializeField] protected bool isTaunt = false;
     [SerializeField] protected bool isDivineShield = false;
@@ -22,9 +23,11 @@ public class BaseCard : MonoBehaviour
     [SerializeField] protected bool isMegaWindfury = false;
     [SerializeField] protected bool isStealth = false;
     [SerializeField] protected bool haveDeathrattle = false;
+    [SerializeField] protected bool isMech = false;
 
     public MinionView minionView;
     public int deathPosition;
+    public BaseCard selfPrefab; //for kangor's Apprentice;
 
     public bool IsTaunt { get => isTaunt; set => isTaunt = value; }
     public bool IsDivineShield { get => isDivineShield; set => isDivineShield = value; }
@@ -32,26 +35,7 @@ public class BaseCard : MonoBehaviour
     public bool IsMegaWindfury { get => isMegaWindfury; set => isMegaWindfury = value; }
     public bool IsStealth { get => isStealth; set => isStealth = value; }
     public bool HaveDeathrattle { get => haveDeathrattle; set => haveDeathrattle = value; }
-
-    void Awake()
-    {
-        if (GameObject.FindGameObjectsWithTag("GameController") != null)
-        {
-            gameController = GameObject.FindGameObjectsWithTag("GameController")[0].GetComponent<GameController>();
-        }
-        else
-        {
-            Debug.Log("Can't find GameController");
-        }
-        if (gameObject.GetComponent<MinionView>() != null)
-        {
-            minionView = gameObject.GetComponent<MinionView>();
-        }
-        else
-        {
-            Debug.Log("Can't find MinionView");
-        }
-    }
+    public bool IsMech { get => isMech; set => isMech = value; }
 
     public int GetCurrentAttack()
     {
@@ -113,7 +97,7 @@ public class BaseCard : MonoBehaviour
         minionView.HealthUpdate();
     }
 
-    public bool Summon(Minions minions)
+    public virtual bool Summon(Minions minions)
     {
         this.minions = minions;
         enemyMinions = minions.enemyMinions;
@@ -133,6 +117,12 @@ public class BaseCard : MonoBehaviour
         {
             Debug.Log("Can't find MinionView");
         }
+       
+        if (isMech)
+        {
+            this.races.Add(new Race(Race.RaceType.Mech));
+        }
+
         return false;
     }
 
@@ -151,14 +141,14 @@ public class BaseCard : MonoBehaviour
     public IEnumerator AttackAction(int targetID)
     {
         BaseCard target = enemyMinions.GetMinionByID(targetID);
+        if (target != null)
+        {
+            yield return StartCoroutine(minionView.AttackMove(PositionCalculate(targetID, enemyMinions.GetNumOfMinions())));
+            StartCoroutine(minionView.Move(PositionCalculate(GetID(), minions.GetNumOfMinions())));
 
-        yield return StartCoroutine(minionView.AttackMove(PositionCalculate(targetID, enemyMinions.GetNumOfMinions())));
-        StartCoroutine(minionView.Move(PositionCalculate(GetID(), minions.GetNumOfMinions())));
-
-        yield return StartCoroutine(Attack(target));
-
-        StartCoroutine(minions.DeathSettlement());
-        
+            yield return StartCoroutine(Attack(target));
+        }
+        StartCoroutine(minions.DeathSettlement());        
     }
 
     public IEnumerator MoveTo(int targetPosition)
@@ -199,26 +189,21 @@ public class BaseCard : MonoBehaviour
         yield return 0;
     }
 
-    public virtual bool Aura()
+    public virtual bool GetAura(BaseCard baseCard)
     {
         return false;
     }
 
-    public virtual bool AuraUpdate()
-    {
-        return false;
-    }
-
-    public virtual bool AuraRemove()
+    public virtual bool RemoveAura(BaseCard baseCard)
     {
         return false;
     }
 
     //以下为各种扳机触发
 
-    public virtual bool SummonMinion()
+    public virtual IEnumerator SummonMinion(BaseCard baseCard)
     {
-        return false;
+        yield return 0;
     }
 
     public virtual bool MinionDeath()

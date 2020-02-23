@@ -10,8 +10,12 @@ public class Minions : MonoBehaviour
     public List<BaseCard> deadMinion = new List<BaseCard>();
     public List<BaseCard> damagedMinion = new List<BaseCard>();
 
+    public List<BaseCard> deadMech = new List<BaseCard>();
+
     public Minions enemyMinions;
     public GameController gameController;
+
+    public bool isRivendare = false;
 
     [SerializeField] private bool isUnder = false;
     [SerializeField] private int attackingMinionID = -1;
@@ -23,16 +27,7 @@ public class Minions : MonoBehaviour
             return minions.ToArray().Length;
         }
         else
-        {
-            if (enemyMinions.GetNumOfMinions() != 0)
-            {
-                gameController.GameOver(gameObject.name);
-
-            }
-            else
-            {
-                gameController.GameOver("Draw!");
-            }
+        {            
             return 0;
         }
     }
@@ -69,7 +64,7 @@ public class Minions : MonoBehaviour
     {
         if (GetNumOfMinions() < 7)
         {
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.2f);
             BaseCard newMinion = Instantiate(baseCard, transform.position + new Vector3(0, 0, 5), transform.rotation);
             if (position >= GetNumOfMinions())
             {
@@ -91,15 +86,27 @@ public class Minions : MonoBehaviour
                 }
             }
             newMinion.transform.parent = gameObject.transform;
+            yield return new WaitForSeconds(0.5f);
+            yield return StartCoroutine(PositionUpdate());
+            yield return StartCoroutine(MinionSummonSettleMent(newMinion));
         }
-        yield return StartCoroutine(PositionUpdate());
     }
 
     public IEnumerator RandomlyAttack()
     {
-        GetNumOfMinions();
-        attackingMinionID = (attackingMinionID + 1) % GetNumOfMinions();
-        yield return StartCoroutine(minions[attackingMinionID].AttackAction(enemyMinions.RandomlyChooseMinionToAttack()));    
+        if (GetNumOfMinions() != 0)
+        {
+            attackingMinionID = (attackingMinionID + 1) % GetNumOfMinions();
+            int tmp = enemyMinions.RandomlyChooseMinionToAttack();
+            if (tmp < enemyMinions.GetNumOfMinions())
+            {
+                yield return StartCoroutine(minions[attackingMinionID].AttackAction(tmp));
+            }
+        }
+        else
+        {
+            yield return 0;
+        }
     }
 
     public int RandomlyChooseMinion()
@@ -112,14 +119,12 @@ public class Minions : MonoBehaviour
             tmp1 = Random.Range(0, GetNumOfMinions());
             tmp2++;
         }
-        while (GetMinionByID(tmp1).IsDie() && tmp2 <= 50);
+        while (GetMinionByID(tmp1).IsDie() && tmp2 <= 500);
         return tmp1;    
     }
 
     public int RandomlyChooseMinionToAttack()
     {
-        GetNumOfMinions();
-
         List<BaseCard> tauntMinions = new List<BaseCard>();
 
         foreach(BaseCard baseCard in minions)
@@ -154,6 +159,10 @@ public class Minions : MonoBehaviour
             if (baseCard.IsDie())
             {
                 deadMinion.Add(baseCard);
+                if (baseCard.IsMech)
+                {
+                    deadMech.Add(baseCard.selfPrefab);
+                }
                 baseCard.DeathRattleView();
             }
         }
@@ -163,16 +172,17 @@ public class Minions : MonoBehaviour
             if (baseCard.IsDie())
             {
                 deadMinion.Add(baseCard);
+                if (baseCard.IsMech)
+                {
+                    enemyMinions.deadMech.Add(baseCard.selfPrefab);
+                }
                 baseCard.DeathRattleView();
             }
         }
-
-        AuraUpdateSettlement();
-        enemyMinions.AuraUpdateSettlement();
-
+        
         foreach (BaseCard baseCard in deadMinion)
         {
-            baseCard.AuraRemove();
+            //baseCard.AuraRemove();
             baseCard.deathPosition = baseCard.GetID();
             Remove(baseCard);            
             enemyMinions.Remove(baseCard);
@@ -186,7 +196,9 @@ public class Minions : MonoBehaviour
             StartCoroutine(DeathSettlement());
         }
         else
-        {            
+        {
+            IsGameOver();
+            enemyMinions.IsGameOver();
             gameController.NextTurn(enemyMinions);
         }
     }
@@ -204,6 +216,19 @@ public class Minions : MonoBehaviour
         foreach(BaseCard deadMinion in deadMinion)
         {
             yield return StartCoroutine(deadMinion.DeathRattle());
+            if (deadMinion.minions.isRivendare)
+            {
+                yield return StartCoroutine(deadMinion.DeathRattle());
+                yield return StartCoroutine(deadMinion.DeathRattle());
+            }
+        }
+    }
+
+    public IEnumerator MinionSummonSettleMent(BaseCard baseCard)
+    {
+        foreach (BaseCard minion in minions)
+        {
+            yield return StartCoroutine(minion.SummonMinion(baseCard));
         }
     }
 
@@ -215,11 +240,22 @@ public class Minions : MonoBehaviour
         }
     }
 
-    public void AuraUpdateSettlement()
+    public void MinionsGetAura(BaseCard baseCard)
     {
-
+        foreach (BaseCard minion in minions)
+        {
+            baseCard.GetAura(minion);
+        }
     }
-    
+
+    public void MinionsRemoveAura(BaseCard baseCard)
+    {
+        foreach (BaseCard minion in minions)
+        {
+            baseCard.RemoveAura(minion);
+        }
+    }
+
     public IEnumerator PositionUpdate()
     {
         foreach (BaseCard baseCard in minions)
@@ -240,4 +276,26 @@ public class Minions : MonoBehaviour
         return isUnder;
     }
 
+    public void GameStart()
+    {
+        foreach (BaseCard baseCard in minions)
+        {
+            baseCard.Summon(this);
+        }
+    }
+
+    public void IsGameOver()
+    {
+        if (minions.ToArray().Length == 0)
+        {
+            if (enemyMinions.GetNumOfMinions() != 0)
+            {
+                gameController.GameOver(gameObject.name);
+            }
+            else
+            {
+                gameController.GameOver("Draw!");
+            }
+        }
+    }
 }

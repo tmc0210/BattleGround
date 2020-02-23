@@ -9,6 +9,6 @@ public class MechanoEgg : BaseCard
     public override IEnumerator DeathRattle()
     {
         yield return StartCoroutine(minions.SummonMinion(prefab, deathPosition));
-        yield return StartCoroutine(minions.SummonMinion(prefab, deathPosition + 1));
+        //yield return StartCoroutine(minions.SummonMinion(prefab, deathPosition + 1));
     }
 }

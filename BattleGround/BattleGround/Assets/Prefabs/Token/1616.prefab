@@ -680,16 +680,19 @@ MonoBehaviour:
   baseHealth: 16
   death: 0
   gameController: {fileID: 0}
-  minions: {fileID: 0}
   enemyMinions: {fileID: 0}
+  minions: {fileID: 0}
   isTaunt: 0
   isDivineShield: 0
   isWindfury: 0
   isMegaWindfury: 0
   isStealth: 0
   haveDeathrattle: 0
+  isMech: 1
   minionView: {fileID: 8382977222516527512}
   deathPosition: 0
+  selfPrefab: {fileID: 7861475203313797012, guid: dd39746e601f9be4595f523d6deeb2e2,
+    type: 3}
 --- !u!114 &8382977222516527512
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,10 +8,10 @@ public class KaboomBot : BaseCard
     {
         yield return new WaitForSeconds(0.5f);
         BaseCard target = minions.enemyMinions.minions[minions.enemyMinions.RandomlyChooseMinion()];
-        yield return StartCoroutine (target.GetHurt(4));
+        if (target != null) yield return StartCoroutine(target.GetHurt(4));
         yield return new WaitForSeconds(0.5f);
         target = minions.enemyMinions.minions[minions.enemyMinions.RandomlyChooseMinion()];
-        yield return StartCoroutine(target.GetHurt(4));
+        if (target != null) yield return StartCoroutine(target.GetHurt(4));
         yield return new WaitForSeconds(0.5f);
     }
 }
