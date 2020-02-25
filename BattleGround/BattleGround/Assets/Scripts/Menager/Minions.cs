@@ -14,6 +14,7 @@ public class Minions : MonoBehaviour
 
     public Minions enemyMinions;
     public GameController gameController;
+    public AllMinions allMinions;
 
     public bool isRivendare = false;
 
@@ -50,7 +51,7 @@ public class Minions : MonoBehaviour
 
     public BaseCard GetMinionByID(int num)
     {
-        if (num < minions.ToArray().Length)
+        if (num < minions.ToArray().Length && num >= 0)
         {
             return minions[num];
         }
@@ -98,7 +99,7 @@ public class Minions : MonoBehaviour
         {
             attackingMinionID = (attackingMinionID + 1) % GetNumOfMinions();
             int tmp = enemyMinions.RandomlyChooseMinionToAttack();
-            if (tmp < enemyMinions.GetNumOfMinions())
+            if (tmp < enemyMinions.GetNumOfMinions() && tmp >= 0)
             {
                 yield return StartCoroutine(minions[attackingMinionID].AttackAction(tmp));
             }
@@ -137,7 +138,7 @@ public class Minions : MonoBehaviour
         
         if (tauntMinions.ToArray().Length != 0)
         {
-            return tauntMinions[Random.Range(0, tauntMinions.ToArray().Length)].GetID();
+            return tauntMinions[Random.Range(0, tauntMinions.ToArray().Length)].GetPosition();
         }
         else
         {
@@ -154,6 +155,8 @@ public class Minions : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
 
+        //FirstAuraSettlement()
+
         foreach (BaseCard baseCard in minions)
         {            
             if (baseCard.IsDie())
@@ -161,7 +164,7 @@ public class Minions : MonoBehaviour
                 deadMinion.Add(baseCard);
                 if (baseCard.IsMech)
                 {
-                    deadMech.Add(baseCard.selfPrefab);
+                    deadMech.Add(allMinions.GetCardByInt(baseCard.ID));
                 }
                 baseCard.DeathRattleView();
             }
@@ -174,7 +177,7 @@ public class Minions : MonoBehaviour
                 deadMinion.Add(baseCard);
                 if (baseCard.IsMech)
                 {
-                    enemyMinions.deadMech.Add(baseCard.selfPrefab);
+                    enemyMinions.deadMech.Add(allMinions.GetCardByInt(baseCard.ID));
                 }
                 baseCard.DeathRattleView();
             }
@@ -183,7 +186,7 @@ public class Minions : MonoBehaviour
         foreach (BaseCard baseCard in deadMinion)
         {
             //baseCard.AuraRemove();
-            baseCard.deathPosition = baseCard.GetID();
+            baseCard.deathPosition = baseCard.GetPosition();
             Remove(baseCard);            
             enemyMinions.Remove(baseCard);
         }
@@ -260,12 +263,12 @@ public class Minions : MonoBehaviour
     {
         foreach (BaseCard baseCard in minions)
         {
-            StartCoroutine(baseCard.MoveTo(baseCard.PositionCalculate(baseCard.GetID(), GetNumOfMinions())));
+            StartCoroutine(baseCard.MoveTo(baseCard.PositionCalculate(baseCard.GetPosition(), GetNumOfMinions())));
         }
 
         foreach (BaseCard baseCard in enemyMinions.minions)
         {
-            StartCoroutine(baseCard.MoveTo(baseCard.PositionCalculate(baseCard.GetID(), enemyMinions.GetNumOfMinions())));
+            StartCoroutine(baseCard.MoveTo(baseCard.PositionCalculate(baseCard.GetPosition(), enemyMinions.GetNumOfMinions())));
         }
 
         yield return new WaitForSeconds(1);

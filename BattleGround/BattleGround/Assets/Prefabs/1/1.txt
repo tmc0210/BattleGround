@@ -1,0 +1,12 @@
+     * 1000 雄斑虎 Alleycat	
+     * 1010 恐狼前锋 Dire Wolf Alpha
+     * 1020 邪魔仆从 Fiendish Servant
+     * 1030 机械袋鼠 Mecharoo
+     * 1040 微型战斗机甲 Micro Machine
+     * 1050 鱼人招潮者 Murloc Tidecaller
+     * 1060 鱼人猎潮者 Murloc Tidehunter
+     * 1070 正义保护者 Righteous Protector
+     * 1080 石塘猎人 Rockpool Hunter
+     * 1090 无私的英雄 Selfless Hero
+     * 1100 粗俗的矮劣魔 Vulgar Homunculus
+     * 1110 愤怒编织者 WrathWeaver

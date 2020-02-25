@@ -1,0 +1,18 @@
+     * 3000 钴制卫士 Cobalt Guardian
+     * 3010 寒光先知 Coldlight Seer
+     * 3020 人气选手 Crowd Favorite
+     * 3030 魔瘾结晶者 Crystalweaver
+     * 3040 驯兽师 Houndmaster
+     * 3050 小鬼首领 Imp Gang Boss
+     * 3060 寄生恶狼 Infested Wolf
+     * 3070 卡德加 Khagar
+     * 3080 族群领袖 Pack Leader
+     * 3090 方阵指挥官 Phalanx Commander
+     * 3100 载人收割机 Piloted Shredder
+     * 3110 闹闹机器人 Psych-o-Tron
+     * 3120 量产型恐吓机 Replicating Menace
+     * 3130 废旧螺栓机甲 Screwjank Clunker
+     * 3140 百变泽鲁斯 Shifter Zerus
+     * 3150 灵魂杂耍者 Soul Juggler
+     * 3160 比斯巨兽 The Beast
+     * 3170 始祖龟执盾者 Tortollan Shellraiser

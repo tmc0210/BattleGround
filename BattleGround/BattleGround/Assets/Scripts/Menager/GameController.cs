@@ -6,13 +6,21 @@ public class GameController : MonoBehaviour
 {
     public Minions playerMinions1;
     public Minions playerMinions2;
+    public AllMinions allMinions;
 
     // Start is called before the first frame update
     void Start()
     {
         playerMinions1.GameStart();
         playerMinions2.GameStart();
-        NextTurn(playerMinions1);
+        if (Random.Range(0, 2) == 0)
+        {
+            NextTurn(playerMinions1);
+        }
+        else
+        {
+            NextTurn(playerMinions2);
+        }
     }
 
     public void NextTurn(Minions minion)

@@ -24,10 +24,15 @@ public class BaseCard : MonoBehaviour
     [SerializeField] protected bool isStealth = false;
     [SerializeField] protected bool haveDeathrattle = false;
     [SerializeField] protected bool isMech = false;
+    [SerializeField] protected bool isBeast = false;
+    [SerializeField] protected bool isMurloc = false;
+    [SerializeField] protected bool isDemon = false;
+
+    public int ID;
+    public bool isGold = false;
 
     public MinionView minionView;
     public int deathPosition;
-    public BaseCard selfPrefab; //for kangor's Apprentice;
 
     public bool IsTaunt { get => isTaunt; set => isTaunt = value; }
     public bool IsDivineShield { get => isDivineShield; set => isDivineShield = value; }
@@ -36,6 +41,10 @@ public class BaseCard : MonoBehaviour
     public bool IsStealth { get => isStealth; set => isStealth = value; }
     public bool HaveDeathrattle { get => haveDeathrattle; set => haveDeathrattle = value; }
     public bool IsMech { get => isMech; set => isMech = value; }
+    public bool IsBeast { get => isBeast; set => isBeast = value; }
+    public bool IsMurloc { get => isMurloc; set => isMurloc = value; }
+    public bool IsDemon { get => isDemon; set => isDemon = value; }
+
 
     public int GetCurrentAttack()
     {
@@ -123,6 +132,21 @@ public class BaseCard : MonoBehaviour
             this.races.Add(new Race(Race.RaceType.Mech));
         }
 
+        if (isBeast)
+        {
+            this.races.Add(new Race(Race.RaceType.Beast));
+        }
+
+        if (isMurloc)
+        {
+            this.races.Add(new Race(Race.RaceType.Murloc));
+        }
+
+        if (isDemon)
+        {
+            this.races.Add(new Race(Race.RaceType.Demon));
+        }
+
         return false;
     }
 
@@ -144,7 +168,7 @@ public class BaseCard : MonoBehaviour
         if (target != null)
         {
             yield return StartCoroutine(minionView.AttackMove(PositionCalculate(targetID, enemyMinions.GetNumOfMinions())));
-            StartCoroutine(minionView.Move(PositionCalculate(GetID(), minions.GetNumOfMinions())));
+            StartCoroutine(minionView.Move(PositionCalculate(GetPosition(), minions.GetNumOfMinions())));
 
             yield return StartCoroutine(Attack(target));
         }
@@ -241,7 +265,7 @@ public class BaseCard : MonoBehaviour
         }
     }   
     
-    public int GetID()
+    public int GetPosition()
     {
         return minions.minions.IndexOf(this);
     }

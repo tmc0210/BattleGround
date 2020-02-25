@@ -1,0 +1,14 @@
+     * 5000 安尼赫兰战场军官 Annihilan Battlemaster
+     * 5010 瑞文戴尔男爵 Baron Rivendare
+     * 5020 布莱恩·铜须 Brann Bronzebeard
+     * 5030 巨狼戈德林 Goldrinn，the Great Wolf
+     * 5040 铁皮恐角龙 Ironhide Direhorn
+     * 5050 回收机器人 Junkbot
+     * 5060 拜戈尔格国王 King Bagurgle
+     * 5070 光牙执行者 Lightfang Enforcer
+     * 5080 玛尔加尼斯 Mal'Ganis
+     * 5090 蛮鱼斥候 Primalfin Lookout
+     * 5100 臃肿的蛇颈龙 Sated Threshadon
+     * 5110 长鬃草原狮 Savannah Highmane
+     * 5120 硬壳清道夫 Strongshell Scavenger
+     * 5130 虚空领主 VoidLord
