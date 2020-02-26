@@ -696,7 +696,6 @@ MonoBehaviour:
   isGold: 1
   minionView: {fileID: 8382977222516527512}
   deathPosition: 0
-  selfPrefab: {fileID: 7861475203313797012}
 --- !u!114 &8382977222516527512
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4
+  m_Text: 2
 --- !u!114 &5342078078950604887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 6
+  m_Text: 2
 --- !u!114 &5707442272519882753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2617433984998347480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -638,7 +638,7 @@ GameObject:
   - component: {fileID: 8382977222516527512}
   - component: {fileID: 2161638187065202801}
   m_Layer: 0
-  m_Name: 0111 46Taunt
+  m_Name: 0021 Murloc Scout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,30 +673,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   star: 1
-  attack: 4
-  health: 6
-  maxHealth: 6
-  baseAttack: 4
-  baseHealth: 6
+  attack: 2
+  health: 2
+  maxHealth: 2
+  baseAttack: 2
+  baseHealth: 2
   death: 0
   gameController: {fileID: 0}
   enemyMinions: {fileID: 0}
   minions: {fileID: 0}
-  isTaunt: 1
+  isTaunt: 0
   isDivineShield: 0
   isWindfury: 0
   isMegaWindfury: 0
   isStealth: 0
   haveDeathrattle: 0
-  isMech: 1
+  isMech: 0
   isBeast: 0
-  isMurloc: 0
+  isMurloc: 1
   isDemon: 0
-  ID: 111
+  ID: 21
   isGold: 1
   minionView: {fileID: 8382977222516527512}
   deathPosition: 0
-  selfPrefab: {fileID: 7861475203313797012}
 --- !u!114 &8382977222516527512
 MonoBehaviour:
   m_ObjectHideFlags: 0

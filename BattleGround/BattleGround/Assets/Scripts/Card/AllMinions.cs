@@ -272,7 +272,7 @@ public class AllMinions : MonoBehaviour
      * 5130 虚空领主         VoidLord
      *
      * 6000 死神4000型       Foe Reaper 4000
-     * 6010 温顺的巨壳龙     Gentle Megasaour
+     * 6010 温顺的巨壳龙     Gentle Megasaour                  0150
      * 6020 阴森巨蟒         Ghastcoiler
      * 6030 坎格尔的学徒     Kangor's Apprentice
      * 6040 迈克斯纳         Maexxna

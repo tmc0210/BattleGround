@@ -1540,8 +1540,40 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  TokenList: []
-  GoldenTokenList: []
+  TokenList:
+  - {fileID: 7861475203313797012, guid: 848c8d4d23a8a664e8741bedce240e07, type: 3}
+  - {fileID: 7861475203313797012, guid: 7c69609f2deef404397efbf2283d8ca1, type: 3}
+  - {fileID: 7861475203313797012, guid: 4fd081f6185829148a86c2c3eb51ac4a, type: 3}
+  - {fileID: 7861475203313797012, guid: 95348912511416342b6c7b8ed88eec6e, type: 3}
+  - {fileID: 7861475203313797012, guid: 61a1ce45d827f5f48babb3358e666ffd, type: 3}
+  - {fileID: 7861475203313797012, guid: 033a651447bcb4c468a8913691f5ba13, type: 3}
+  - {fileID: 7861475203313797012, guid: 28598cfe95f0068409c72c123783db8a, type: 3}
+  - {fileID: 7861475203313797012, guid: 3a5711643adfe6e45a726f9e5a51695f, type: 3}
+  - {fileID: 7861475203313797012, guid: 5b1c8809a7eed474982d8440761662ff, type: 3}
+  - {fileID: 7861475203313797012, guid: 3d4c9f4ada021ef4292b64f8d098dff4, type: 3}
+  - {fileID: 7861475203313797012, guid: 8bdfa922aa00c2d4585884156869dade, type: 3}
+  - {fileID: 7861475203313797012, guid: 79b451722dfe7ca4d9686c914bd0a144, type: 3}
+  - {fileID: 7861475203313797012, guid: 5bfc36f5efbe04942b00088d5815c2c5, type: 3}
+  - {fileID: 7861475203313797012, guid: 08ccf1a01aaed7941aabfdd087fddaa7, type: 3}
+  - {fileID: 7861475203313797012, guid: 7c6c3a38033fc0a48aa67fc7640437a9, type: 3}
+  - {fileID: 7861475203313797012, guid: d2204115336962c438d6b4b07123f46e, type: 3}
+  GoldenTokenList:
+  - {fileID: 7861475203313797012, guid: 6f492fc6c61dae54c85cc1e4b02acdc7, type: 3}
+  - {fileID: 7861475203313797012, guid: ae8bbf6c16317d049a9f5253884eb8d2, type: 3}
+  - {fileID: 7861475203313797012, guid: b99260b468494fb47b5a5ae90caded95, type: 3}
+  - {fileID: 7861475203313797012, guid: bad15f34a4536264a9655a18e0a1fa5d, type: 3}
+  - {fileID: 7861475203313797012, guid: ce650973e0ca45244a4dbf8512981ceb, type: 3}
+  - {fileID: 7861475203313797012, guid: da5338fad57a1f64fbdcb873e1e30662, type: 3}
+  - {fileID: 7861475203313797012, guid: 57c670a4488685f4db3b241c2608c93c, type: 3}
+  - {fileID: 7861475203313797012, guid: 61282f6e7e572344d9ab110fe88d335b, type: 3}
+  - {fileID: 7861475203313797012, guid: 415011842e0cf2e4e82d7cdd2f79148a, type: 3}
+  - {fileID: 7861475203313797012, guid: 0a7fbaa69dd0cac4899c8d7a4db15c4e, type: 3}
+  - {fileID: 7861475203313797012, guid: f1883b7ac1e257c45be94f40f56a9f2b, type: 3}
+  - {fileID: 7861475203313797012, guid: 09ea7ff26b581b5478333de9f42e3f87, type: 3}
+  - {fileID: 7861475203313797012, guid: 621aedb477ba1a64183327490b2e9a6e, type: 3}
+  - {fileID: 7861475203313797012, guid: c304c653b2c042146bf5c02591e94eff, type: 3}
+  - {fileID: 7861475203313797012, guid: bd8e523fa2dc1ee40834de3faa595102, type: 3}
+  - {fileID: 7861475203313797012, guid: a16e0d03e538ded45b2baf29edc0e7a2, type: 3}
 --- !u!4 &1640705269
 Transform:
   m_ObjectHideFlags: 0
@@ -1615,6 +1647,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1792885465527752300, guid: 96b63ffb73b087e4084a621bc6fcfff4,
+        type: 3}
+      propertyPath: minions
+      value: 
+      objectReference: {fileID: 994779398}
+    - target: {fileID: 1792885465527752300, guid: 96b63ffb73b087e4084a621bc6fcfff4,
+        type: 3}
+      propertyPath: enemyMinions
+      value: 
+      objectReference: {fileID: 91116515}
     - target: {fileID: 4664981585104803198, guid: 96b63ffb73b087e4084a621bc6fcfff4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1670,16 +1712,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1792885465527752300, guid: 96b63ffb73b087e4084a621bc6fcfff4,
-        type: 3}
-      propertyPath: minions
-      value: 
-      objectReference: {fileID: 994779398}
-    - target: {fileID: 1792885465527752300, guid: 96b63ffb73b087e4084a621bc6fcfff4,
-        type: 3}
-      propertyPath: enemyMinions
-      value: 
-      objectReference: {fileID: 91116515}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96b63ffb73b087e4084a621bc6fcfff4, type: 3}
 --- !u!4 &1978096796 stripped
